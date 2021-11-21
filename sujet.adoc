@@ -1,0 +1,47 @@
+= C'est qui le chef ?
+
+== Présentation
+Votre travail sera de compléter une application RH qui gère l'organigramme d'une société.
+
+=== Accueil
+On arrive d'abord sur la page d'accueil qui liste les services et les employés (actifs) de l'entreprise.
+A partir de cette page, on peut :
+
+* créer une nouveau service
+* cliquer sur un service pour afficher ses détails.
+* filtrer par nom (partie de nom).
+* créer un nouvel employé
+* cliquer sur un employé pour afficher ses détails.
+
+== création de service
+on doit spécifier le service parent (optionnel), le nom du service, une description de ses missions
+
+== Détails de service
+on consulte :
+
+* le service parent (en cliquant dessus, on bascule sur sa page)
+* la liste des employés du service (en cliquant sur un sous service, on bascule sur sa page).
+* la liste de sous-services directs (en cliquant sur un sous service, on bascule sur sa page)
+
+on peut supprimer un service. Les employés sont temporairement réaffectés à un service que l'on indique (attention aux sous services!)
+
+
+== création d'employé
+* on doit saisir son nom, son prénom, son adresse, sa date de recrutement.
+* on doit indiquer à quel service il appartient et son rôle dans le service.
+
+== consultation d'employé
+* on peut le changer de service (changer aussi le rôle)
+* on peut le retirer de l'organigramme (quitte l'entreprise). on le conserve dans la base en notaqnt sa date de départ.
+
+== Travail à réaliser
+* créer les entities nécessaires
+* compléter les DAO lorsque nécessaire
+* compléter la façade (TODO dans les méthodes)
+* compléter le contrôleur lorsque nécessaire
+* S'il vous reste du temps, notez dans un fichier "ameliorations.adoc" la liste des améliorations que vous apporteriez à l'appli.
+
+== Remarque
+* Faites des commits / push réguliers...
+* Vous utilisez une base H2, comme d'habitude...
+* On utilise des JSP, car les erreurs sont plus visibles qu'avec Thymeleaf...
