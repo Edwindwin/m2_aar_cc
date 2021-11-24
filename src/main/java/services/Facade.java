@@ -32,7 +32,15 @@ public class Facade {
     //DONE
     public EmployeDetailsDTO getDetailsEmploye(int id) {
         Employee e = this.em.find(Employee.class, id);
-        return new EmployeDetailsDTO(e.getId(), e.getName(), e.getFirstName());
+        return new EmployeDetailsDTO(
+                e.getId(),
+                e.getName(),
+                e.getFirstName(),
+                e.getAddress(),
+                e.getJoinDate().toString(),
+                e.getService().getId(),
+                e.getRole()
+        );
     }
 
     //DONE
@@ -41,17 +49,25 @@ public class Facade {
         val employeeService = this.em.find(entities.Service.class, idService);
         if (employeeService == null) return null;
 
-        Employee employee = new Employee();
-        employee.setName(nom);
-        employee.setFirstName(prenom);
-        employee.setAddress(adresse);
-        employee.setJoinDate(dateRec);
-        employee.setRole(role);
-        employee.setService(employeeService);
+        Employee e = new Employee();
+        e.setName(nom);
+        e.setFirstName(prenom);
+        e.setAddress(adresse);
+        e.setJoinDate(dateRec);
+        e.setRole(role);
+        e.setService(employeeService);
 
-        this.em.persist(employee);
+        this.em.persist(e);
 
-        return new EmployeDetailsDTO(employee.getId(), employee.getName(), employee.getFirstName());
+        return new EmployeDetailsDTO(
+                e.getId(),
+                e.getName(),
+                e.getFirstName(),
+                e.getAddress(),
+                e.getJoinDate().toString(),
+                e.getService().getId(),
+                e.getRole()
+        );
     }
 
     //DONE
@@ -71,11 +87,15 @@ public class Facade {
 
         this.em.merge(e);
 
-        return new EmployeDetailsDTO(
-                e.getId(),
-                nom,
-                prenom
-        );
+         return new EmployeDetailsDTO(
+                 e.getId(),
+                 e.getName(),
+                 e.getFirstName(),
+                 e.getAddress(),
+                 e.getJoinDate().toString(),
+                 e.getService().getId(),
+                 e.getRole()
+         );
     }
 
     //DONE

@@ -16,10 +16,4 @@ public class EmployeDetailsDTO {
     private String dateRecrutement;
     private int idService;
     private String role;
-    // TODO Compléter !
-    public EmployeDetailsDTO(int id, String nom, String prenom) {
-        this.id=id;
-        this.prenom=prenom;
-        this.nom=nom;
-    }
 }
