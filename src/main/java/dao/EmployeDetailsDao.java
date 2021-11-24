@@ -5,9 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor
+@Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class EmployeDetailsDao {
     private int id;
     private String nom;
