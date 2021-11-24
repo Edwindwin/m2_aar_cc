@@ -39,7 +39,7 @@ import java.util.Properties;
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         EmbeddedDatabase db = builder
                 .setType(EmbeddedDatabaseType.H2) //.H2 or .DERBY
-//                .addScript("db/sql/create-db.sql")   // dans resources
+//                .addScript("db/create-db.sql")   // dans resources
                 .build();
         return db;
     }
