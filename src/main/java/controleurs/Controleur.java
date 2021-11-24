@@ -37,7 +37,7 @@ public class Controleur {
         model.addAttribute("details", facade.getDetailsService(idService));
         model.addAttribute("tousservices", facade.getServices());
         model.addAttribute("tousemployes", facade.getEmployes(null));
-        // TODO les autres données nécessaires
+        // ²TODO les autres données nécessaires
         return "detailsService";
     }
 

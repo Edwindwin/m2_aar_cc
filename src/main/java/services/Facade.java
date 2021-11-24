@@ -152,6 +152,8 @@ public class Facade {
     public void deleteService(int idService) {
         val service = this.em.find(entities.Service.class, idService);
         if (service != null) {
+            for (val emp : service.getEmployees()) emp.setService(null);
+            for (val sub : service.getSubService()) sub.setParentService(null);
             this.em.remove(service);
         }
     }
