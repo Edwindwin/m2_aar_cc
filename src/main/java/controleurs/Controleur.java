@@ -132,7 +132,7 @@ public class Controleur {
                               Model model){
         logger.info("maj membre "+idEmploye+" "+nom+" "+prenom+" "+adresse+" "+dateRec+" "+idService+" "+role);
         facade.updateEmploye(idEmploye,nom,prenom,adresse,datefromString(dateRec),idService,role);
-        return detailsEmploye(1,model);
+        return detailsEmploye(idEmploye,model);
     }
 
 
