@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class Facade {
     }
 
     //DONE
+    @Transactional
     public EmployeDetailsDTO createEmploye(String nom, String prenom, String adresse, LocalDate dateRec, int idService, String role) {
         val employeeService = this.em.find(entities.Service.class, idService);
         if (employeeService == null) return null;
@@ -53,6 +55,7 @@ public class Facade {
     }
 
     //DONE
+    @Transactional
     public EmployeDetailsDTO updateEmploye(int idMembre, String nom, String prenom, String adresse, LocalDate datefromString, int idService, String role) {
         Employee e = this.em.find(Employee.class, idMembre);
         e.setName(nom);
@@ -82,6 +85,7 @@ public class Facade {
         return services;
     }
 
+    //DONE
     public List<EmployeMinimalDTO> getEmployes(String filtre) {
         List<EmployeMinimalDTO> employes = new ArrayList<>();
 
@@ -117,6 +121,7 @@ public class Facade {
     }
 
     //DONE
+    @Transactional
     public entities.Service createService(String nom, String mission, int parent) {
         entities.Service service = new entities.Service();
         service.setName(nom);
@@ -127,6 +132,7 @@ public class Facade {
     }
 
     //DONE
+    @Transactional
     public entities.Service updateService(int idService, String nom, String mission, int idParent) {
         val service = this.em.find(entities.Service.class, idService);
         service.setName(nom);
@@ -142,6 +148,7 @@ public class Facade {
     }
 
     //DONE
+    @Transactional
     public void deleteService(int idService) {
         val service = this.em.find(entities.Service.class, idService);
         if (service != null) {
@@ -150,6 +157,7 @@ public class Facade {
     }
 
     //DONE
+    @Transactional
     public void addSousService(int idService, int idSous) {
         val service = this.em.find(entities.Service.class, idService);
         val sousService = this.em.find(entities.Service.class, idSous);
@@ -160,6 +168,7 @@ public class Facade {
     }
 
     //DONE
+    @Transactional
     public void addEmployeService(int idService, int idEmp) {
         val service = this.em.find(entities.Service.class, idService);
         val emp = this.em.find(Employee.class, idEmp);
