@@ -71,7 +71,11 @@ public class Facade {
 
         this.em.merge(e);
 
-        return new EmployeDetailsDTO(33,nom,prenom);
+        return new EmployeDetailsDTO(
+                e.getId(),
+                nom,
+                prenom
+        );
     }
 
     //DONE
