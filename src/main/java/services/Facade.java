@@ -90,7 +90,7 @@ public class Facade {
         List<EmployeMinimalDTO> employes = new ArrayList<>();
 
         if (filtre != null && !filtre.isEmpty())
-            this.em.createQuery("SELECT e FROM Employee e WHERE e.name LIKE %" + filtre + "%", Employee.class)
+            this.em.createQuery("SELECT e FROM Employee e WHERE e.name LIKE '%" + filtre + "%'", Employee.class)
                     .getResultList()
                     .forEach(e -> employes.add(new EmployeMinimalDTO(e.getId(), e.getName() + " " + e.getFirstName())));
 
