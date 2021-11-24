@@ -1,6 +1,6 @@
 package services;
 
-import dao.*;
+import dto.*;
 import entities.Employee;
 import lombok.val;
 import org.springframework.stereotype.Service;
@@ -18,24 +18,24 @@ public class Facade {
     private EntityManager em;
 
     //DONE
-    public List<EmployeMinimalDao> getAllPersonnes() {
-        List<EmployeMinimalDao> liste = new ArrayList<>();
+    public List<EmployeMinimalDTO> getAllPersonnes() {
+        List<EmployeMinimalDTO> liste = new ArrayList<>();
 
         this.em.createQuery("SELECT e FROM Employee e", Employee.class)
                 .getResultList()
-                .forEach(e -> liste.add(new EmployeMinimalDao(e.getId(), e.getName() + " " + e.getFirstName())));
+                .forEach(e -> liste.add(new EmployeMinimalDTO(e.getId(), e.getName() + " " + e.getFirstName())));
 
         return liste;
     }
 
     //DONE
-    public EmployeDetailsDao getDetailsEmploye(int id) {
+    public EmployeDetailsDTO getDetailsEmploye(int id) {
         Employee e = this.em.find(Employee.class, id);
-        return new EmployeDetailsDao(e.getId(), e.getName(), e.getFirstName());
+        return new EmployeDetailsDTO(e.getId(), e.getName(), e.getFirstName());
     }
 
     //DONE
-    public EmployeDetailsDao createEmploye(String nom, String prenom, String adresse, LocalDate dateRec, int idService, String role) {
+    public EmployeDetailsDTO createEmploye(String nom, String prenom, String adresse, LocalDate dateRec, int idService, String role) {
         val employeeService = this.em.find(entities.Service.class, idService);
         if (employeeService == null) return null;
 
@@ -49,11 +49,11 @@ public class Facade {
 
         this.em.persist(employee);
 
-        return new EmployeDetailsDao(employee.getId(), employee.getName(), employee.getFirstName());
+        return new EmployeDetailsDTO(employee.getId(), employee.getName(), employee.getFirstName());
     }
 
     //DONE
-    public EmployeDetailsDao updateEmploye(int idMembre, String nom, String prenom, String adresse, LocalDate datefromString, int idService, String role) {
+    public EmployeDetailsDTO updateEmploye(int idMembre, String nom, String prenom, String adresse, LocalDate datefromString, int idService, String role) {
         Employee e = this.em.find(Employee.class, idMembre);
         e.setName(nom);
         e.setFirstName(prenom);
@@ -68,45 +68,45 @@ public class Facade {
 
         this.em.merge(e);
 
-        return new EmployeDetailsDao(33,nom,prenom);
+        return new EmployeDetailsDTO(33,nom,prenom);
     }
 
     //DONE
-    public List<ServiceMinimalDao> getServices() {
-        List<ServiceMinimalDao> services=new ArrayList<>();
+    public List<ServiceMinimalDTO> getServices() {
+        List<ServiceMinimalDTO> services=new ArrayList<>();
 
         this.em.createQuery("SELECT s FROM Service s", entities.Service.class)
                 .getResultList()
-                .forEach(s -> services.add(new ServiceMinimalDao(s.getId(), s.getName())));
+                .forEach(s -> services.add(new ServiceMinimalDTO(s.getId(), s.getName())));
 
         return services;
     }
 
-    //DONE
-    public List<EmployeMinimalDao> getEmployes(String filtre) {
-        List<EmployeMinimalDao> employes=new ArrayList<>();
+    public List<EmployeMinimalDTO> getEmployes(String filtre) {
+        List<EmployeMinimalDTO> employes = new ArrayList<>();
 
-        this.em.createQuery("SELECT e FROM Employee e WHERE :filtre", Employee.class)
-                .getResultList()
-                .forEach(e -> employes.add(new EmployeMinimalDao(e.getId(), e.getName() + " " + e.getFirstName())));
+        if (filtre != null && !filtre.isEmpty())
+            this.em.createQuery("SELECT e FROM Employee e WHERE e.name LIKE %" + filtre + "%", Employee.class)
+                    .getResultList()
+                    .forEach(e -> employes.add(new EmployeMinimalDTO(e.getId(), e.getName() + " " + e.getFirstName())));
 
         return employes;
     }
 
 
     //DONE
-    public ServiceDetailsDao getDetailsService(int idService) {
+    public ServiceDetailsDTO getDetailsService(int idService) {
 
         val service = this.em.find(entities.Service.class, idService);
         if (service == null) return null;
 
-        List<ServiceMinimalDao> subservices = new ArrayList<>();
-        service.getSubService().forEach(s -> subservices.add(new ServiceMinimalDao(s.getId(), s.getName())));
+        List<ServiceMinimalDTO> subservices = new ArrayList<>();
+        service.getSubService().forEach(s -> subservices.add(new ServiceMinimalDTO(s.getId(), s.getName())));
 
-        List<EmployeMinimalDao> employes = new ArrayList<>();
-        service.getEmployees().forEach(e -> employes.add(new EmployeMinimalDao(e.getId(), e.getName() + " " + e.getFirstName())));
+        List<EmployeMinimalDTO> employes = new ArrayList<>();
+        service.getEmployees().forEach(e -> employes.add(new EmployeMinimalDTO(e.getId(), e.getName() + " " + e.getFirstName())));
 
-        return new ServiceDetailsDao(
+        return new ServiceDetailsDTO(
                 service.getId(),
                 service.getName(),
                 service.getDescription(),
