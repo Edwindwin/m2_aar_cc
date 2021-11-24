@@ -16,13 +16,19 @@ public class Service {
 
     private String name;
 
-    @OneToMany(mappedBy = "parentService", fetch = FetchType.LAZY)
+    @OneToMany(
+            mappedBy = "parentService",
+            fetch = FetchType.EAGER
+    )
     private List<Service> subService;
 
     @ManyToOne
     private Service parentService;
 
-    @OneToMany(mappedBy = "service", fetch = FetchType.LAZY)
+    @OneToMany(
+            mappedBy = "service",
+            fetch = FetchType.EAGER
+    )
     private List<Employee> employees;
 
     private String description;

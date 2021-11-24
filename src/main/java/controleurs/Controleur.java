@@ -1,6 +1,7 @@
 package controleurs;
 
 import entities.Service;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import java.util.logging.Logger;
 @Controller
 @RequestMapping("/")
 public class Controleur {
+
     @Autowired
     Facade facade;
 
@@ -114,9 +116,8 @@ public class Controleur {
                               Model model){
         logger.info("ajout employe "+nom+" "+prenom+" "+adresse+" "+dateRec+" "+idService+" "+role);
 
-        facade.createEmploye(nom,prenom,adresse,datefromString(dateRec),idService,role);
-        // TODO
-        return detailsEmploye(1,model);
+        val e = facade.createEmploye(nom,prenom,adresse,datefromString(dateRec),idService,role);
+        return detailsEmploye(e.getId(), model);
     }
 
     // modification d'une personne
